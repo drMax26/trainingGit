@@ -13,8 +13,16 @@ class MyArrays
 	
 	public function __construct(array $arr)
 	{
+		$this -> changeArray($arr);
+	}
+	
+	public function changeArray(array $arr)
+	{
 		$this -> array = $arr;
 		$this -> arraySize = count($this -> array);
+		$this -> maxValue = null;
+		$this -> secondMaxValue = null;
+		$this -> arraySum = null;
 	}
 	
 /******************************************************************************
@@ -112,6 +120,21 @@ class MyArrays
 		
 		return $this -> arraySum;
 	}
+	
+/******************************************************************************
+/*			6	in_array
+/*****************************************************************************/
+	public function inArray(int $Z)
+	{
+		if (0 == $this -> arraySize)
+		{
+			null;
+		}
+		
+		for ($i = 0; $i < $this -> arraySize; $i++)
+			if ($Z == $this -> array[$i])
+				return $i;
+	}
 }
 
 /*****************************************************************************/	
@@ -129,5 +152,7 @@ echo "SecondMaxValue = " . $obj1 -> getSecondMaxValue() . "<br>";
 echo "ArrayLowerZ = <pre>"; print_r($obj1 -> getArrayLowerZ(5)); echo "</pre><br>";
 
 echo "getArraySum = " . $obj1 -> getArraySum() . "<br>";
+
+echo "inArray = " . $obj1 -> inArray(3) . "<br>";
 
 ?>
