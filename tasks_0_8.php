@@ -4,7 +4,7 @@ ini_set('error_reporting', E_ALL);
 
 class MyArrays
 {
-	public $array;
+	public $myArray;
 	public $maxValue = null;
 	public $secondMaxValue = null;
 	public $arraySize;
@@ -18,11 +18,16 @@ class MyArrays
 	
 	public function changeArray(array $arr)
 	{
-		$this -> array = $arr;
-		$this -> arraySize = count($this -> array);
+		$this -> myArray = $arr;
+		$this -> arraySize = count($this -> myArray);
 		$this -> maxValue = null;
 		$this -> secondMaxValue = null;
 		$this -> arraySum = null;
+	}
+	
+	public function getArray()
+	{
+		return $this -> myArray;
 	}
 	
 /******************************************************************************
@@ -35,11 +40,11 @@ class MyArrays
 			return;
 		}
 		
-		$this -> maxValue = $this -> array[0];
+		$this -> maxValue = $this -> myArray[0];
 		
 		for ($i = 1; $i < $this -> arraySize; $i++)
-			if ($this -> maxValue < $this -> array[$i])
-				$this -> maxValue = $this -> array[$i];
+			if ($this -> maxValue < $this -> myArray[$i])
+				$this -> maxValue = $this -> myArray[$i];
 	}
 	
 	public function getMaxValue()
@@ -60,14 +65,14 @@ class MyArrays
 			return;
 		}
 		
-		if ($this -> maxValue != $this -> array[0])
-			$this -> secondMaxValue = $this -> array[0];
+		if ($this -> maxValue != $this -> myArray[0])
+			$this -> secondMaxValue = $this -> myArray[0];
 		else
-			$this -> secondMaxValue = $this -> array[1];
+			$this -> secondMaxValue = $this -> myArray[1];
 		
 		for ($i = 1; $i < $this -> arraySize; $i++)
-			if (($this -> secondMaxValue < $this -> array[$i]) AND ($this -> maxValue > $this -> array[$i]))
-				$this -> secondMaxValue = $this -> array[$i];
+			if (($this -> secondMaxValue < $this -> myArray[$i]) AND ($this -> maxValue > $this -> myArray[$i]))
+				$this -> secondMaxValue = $this -> myArray[$i];
 	}
 
 
@@ -86,10 +91,10 @@ class MyArrays
 	{
 		$arrayLowerZ = [];
 		for ($i = 0; $i < $this -> arraySize; $i++)
-			if ($this -> array[$i] > $Z)
+			if ($this -> myArray[$i] > $Z)
 				$arrayLowerZ[] = $Z;
 			else
-				$arrayLowerZ[] = $this -> array[$i];
+				$arrayLowerZ[] = $this -> myArray[$i];
 		
 		return $arrayLowerZ;
 	}
@@ -105,7 +110,7 @@ class MyArrays
 		}
 		
 		for ($i = 0; $i < $this -> arraySize; $i++)
-			$this -> arraySum += $this -> array[$i];
+			$this -> arraySum += $this -> myArray[$i];
 	}
 	
 	public function getArraySum()
@@ -122,7 +127,7 @@ class MyArrays
 	}
 	
 /******************************************************************************
-/*			6	in_array
+/*		6	in_array
 /*****************************************************************************/
 	public function inArray(int $Z)
 	{
@@ -132,8 +137,85 @@ class MyArrays
 		}
 		
 		for ($i = 0; $i < $this -> arraySize; $i++)
-			if ($Z == $this -> array[$i])
+			if ($Z == $this -> myArray[$i])
 				return $i;
+	}
+
+/******************************************************************************
+/*		7	array_diff
+/*****************************************************************************/	
+	public function arrayDiff(array $array2)
+	{
+		$count = count($array2);
+		if (0 == $count)
+			return [];
+		
+		$tempArray = $this -> myArray;
+		
+		//for ($i = 0; $i < $this -> arraySize; $i++)
+		foreach($tempArray as $key => $value)
+			for ($y = 0; $y < $count; $y++)
+				if ($value == $array2[$y])
+					unset($tempArray[$key]);
+		
+		return $tempArray;
+	}
+
+/******************************************************************************
+/*		8	sort
+/*****************************************************************************/
+	public function arraySort()
+	{
+		for ($i = ($this -> arraySize - 1); $i > 0; $i--)
+			for ($y = 0; $y < $i; $y++)
+				if ($this -> myArray[$y] > $this -> myArray[$y + 1])
+				{
+					$temp = $this -> myArray[$y];
+					$this -> myArray[$y] = $this -> myArray[$y + 1];
+					$this -> myArray[$y + 1] = $temp;
+				}
+	}
+}
+
+/*****************************************************************************/	
+
+Class MyGenerator
+{
+/******************************************************************************
+/*		1) Написать функцию которая выводит все положительные четные числа которые меньше заданного.
+/*****************************************************************************/	
+	public function getPositivEvenInteger(int $maxValue)
+	{
+		$result = [];
+		for ($i = 0; $i < $maxValue; $i += 2)
+			$result[] = $i;
+		
+		return $result;
+	}
+/******************************************************************************
+/*		2) Вывести определенное количество элементов  последовательности Фибоначчи.
+/*****************************************************************************/
+	public function getFibbonachi($count)
+	{
+		$result = [];
+		if (0 > $count)
+			return $result;
+		
+		$result[] = 0;
+		if (0 == $count)
+			return $result;
+		
+		$result[] = 1;
+		if (1 == $count)
+			return $result;
+		
+		for ($i = 2; $i < $count; $i++)
+		{
+			$myCount = count($result);
+			$result[] = $result[$myCount - 2] + $result[$myCount - 1];
+		}
+		
+		return $result;
 	}
 }
 
@@ -154,5 +236,17 @@ echo "ArrayLowerZ = <pre>"; print_r($obj1 -> getArrayLowerZ(5)); echo "</pre><br
 echo "getArraySum = " . $obj1 -> getArraySum() . "<br>";
 
 echo "inArray = " . $obj1 -> inArray(3) . "<br>";
+
+echo "arrayDiff = <pre>"; print_r($obj1 -> arrayDiff(array(1,2,9,10))); echo "</pre><br>";
+
+$obj1 -> arraySort();
+echo "arraySort = <pre>"; print_r($obj1 -> getArray()); echo "</pre><br>";
+
+/*****************************************************************************/	
+
+$obj2 = new MyGenerator();
+echo "getPositivEvenInteger = <pre>"; print_r($obj2 -> getPositivEvenInteger(21)); echo "</pre><br>";
+
+echo "getFibbonachi = <pre>"; print_r($obj2 -> getFibbonachi(10)); echo "</pre><br>";
 
 ?>
