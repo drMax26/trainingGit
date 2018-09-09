@@ -10,11 +10,15 @@ class MyArrays
 	private $arraySize;
 	private $arraySum = null;
 	
+	private $emptyArray = true;
+	
 	
 	public function __construct(array $arr)
 	{
 		$this->myArray = $arr;
 		$this->arraySize = count($this->myArray);
+		if (0 != $this->arraySize)
+			$this->emptyArray = false;
 	}
 	
 	public function getArray()
@@ -27,7 +31,7 @@ class MyArrays
 /*****************************************************************************/	
 	private function calculateMaxValue()
 	{
-		if (0 == $this->arraySize) {
+		if ($this->emptyArray) {
 			return;
 		}
 		
@@ -54,7 +58,7 @@ class MyArrays
 /*****************************************************************************/
 	private function calculateSecondMaxValue()
 	{
-		if (0 == $this->arraySize) {
+		if ($this->emptyArray) {
 			return;
 		}
 		
@@ -102,7 +106,7 @@ class MyArrays
 /*****************************************************************************/	
 	private function calculateArraySum()
 	{
-		if (0 == $this->arraySize) {
+		if ($this->emptyArray) {
 			return;
 		}
 		
@@ -113,7 +117,7 @@ class MyArrays
 	
 	public function getArraySum()
 	{
-		if (0 == $this->arraySize) {
+		if ($this->emptyArray) {
 			return;
 		}
 		
@@ -129,8 +133,8 @@ class MyArrays
 /*****************************************************************************/
 	public function inArray(int $Z)
 	{
-		if (0 == $this->arraySize) {
-			return null;
+		if ($this->emptyArray) {
+			return;
 		}
 		
 		for ($i = 0; $i < $this->arraySize; $i++) {
@@ -146,7 +150,7 @@ class MyArrays
 	public function arrayDiff(array $array2)
 	{
 		$count = count($array2);
-		if (0 == $count) {
+		if ($this->emptyArray) {
 			return [];
 		}
 		
