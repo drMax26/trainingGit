@@ -195,7 +195,7 @@ Class MyGenerator
 /******************************************************************************
 /*		2) Вывести определенное количество элементов  последовательности Фибоначчи.
 /*****************************************************************************/
-	public function getFibbonachi($count)
+	public function getFibbonachi($count) 
 	{
 		$result = [];
 		if (0 > $count)
@@ -215,7 +215,7 @@ Class MyGenerator
 			$result[] = $result[$myCount - 2] + $result[$myCount - 1];
 		}
 		
-		return $result;
+		return $result; 
 	}
 }
 
