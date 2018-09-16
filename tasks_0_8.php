@@ -17,8 +17,9 @@ class MyArrays
 	{
 		$this->myArray = $arr;
 		$this->arraySize = count($this->myArray);
-		if (0 != $this->arraySize)
+		if (0 != $this->arraySize) {
 			$this->emptyArray = false;
+		}
 	}
 	
 	public function getArray()
